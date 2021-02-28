@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">WeatherApplication</string>
+    <string name="weather">Weather</string>
+    <string name="start">Start</string>
+    <string name="name_format">City: %1$s</string>
+    <string name="temp_format">Temp: %.2f%n</string>
+    <string name="feels_like_format">Feels like: %.2f%n</string>
+    <string name="humidity_format">Humidity: %d</string>
+    <string name="descriprion_format">Description: %1$s</string>
+    <string name="description_absent">No description</string>
+    <string name="save_button">Save</string>
+</resources>

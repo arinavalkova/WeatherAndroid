@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.weather.WeatherActivity">
+
+    <TextView
+        android:id="@+id/tempText"
+        android:layout_width="300dp"
+        android:layout_height="24dp"
+        android:layout_margin="24dp"
+        android:layout_marginBottom="40dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/feelsLikeText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Temp: -25" />
+
+    <TextView
+        android:id="@+id/feelsLikeText"
+        android:layout_width="300dp"
+        android:layout_height="24dp"
+        android:layout_margin="24dp"
+        android:layout_marginBottom="40dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/humidityText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Feels like: -25" />
+
+    <TextView
+        android:id="@+id/humidityText"
+        android:layout_width="300dp"
+        android:layout_height="24dp"
+        android:layout_margin="24dp"
+        android:layout_marginBottom="40dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/descriptionOutput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Humidity: 60" />
+
+    <TextView
+        android:id="@+id/descriptionOutput"
+        android:layout_width="300dp"
+        android:layout_height="24dp"
+        android:layout_margin="24dp"
+        android:layout_marginBottom="24dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/descriptionInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Description: " />
+
+    <TextView
+        android:id="@+id/nameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:layout_marginBottom="40dp"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/tempText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.62"
+        tools:text="City: Novosibirsk" />
+
+    <EditText
+        android:id="@+id/descriptionInput"
+        android:layout_width="296dp"
+        android:layout_height="47dp"
+        android:layout_margin="24dp"
+        android:layout_marginBottom="24dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="280dp"
+        android:layout_height="51dp"
+        android:layout_margin="24dp"
+        android:backgroundTint="#090909"
+        android:text="@string/save_button"
+        android:textColor="#FAF9F9"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.766" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
