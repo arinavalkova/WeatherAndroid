@@ -1,4 +1,4 @@
-package com.nsu.ccfit.weatherapplication.view.list
+package com.nsu.ccfit.weatherapplication.presentation.list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.nsu.ccfit.weatherapplication.R
-import com.nsu.ccfit.weatherapplication.data.City
+import com.nsu.ccfit.weatherapplication.domain.City
 
 class CityAdapter(private val onClick: (City) -> Unit) : RecyclerView.Adapter<CityHolder>() {
 

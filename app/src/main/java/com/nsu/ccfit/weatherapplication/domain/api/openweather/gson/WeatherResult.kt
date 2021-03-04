@@ -1,4 +1,4 @@
-package com.nsu.ccfit.weatherapplication.api.openweathermap.request.gson
+package com.nsu.ccfit.weatherapplication.domain.api.openweather.gson
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

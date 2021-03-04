@@ -1,4 +1,4 @@
-package com.nsu.ccfit.weatherapplication
+package com.nsu.ccfit.weatherapplication.presentation
 
 class LiveEvent : SingleLiveEvent<Unit>() {
 	

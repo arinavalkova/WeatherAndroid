@@ -1,28 +1,17 @@
-package com.nsu.ccfit.weatherapplication.view.list
+package com.nsu.ccfit.weatherapplication.presentation.list
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.nsu.ccfit.weatherapplication.R
-import com.nsu.ccfit.weatherapplication.data.City
-import com.nsu.ccfit.weatherapplication.data.CityApplication
-import com.nsu.ccfit.weatherapplication.data.CityRepository
-import com.nsu.ccfit.weatherapplication.view.weather.WeatherActivity
+import com.nsu.ccfit.weatherapplication.domain.City
+import com.nsu.ccfit.weatherapplication.presentation.weather.WeatherActivity
 
 class ListActivity : AppCompatActivity()  {
 
     private val viewModel: ListViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-                modelClass
-                    .getConstructor(CityRepository::class.java)
-                    .newInstance(
-                        (application as CityApplication).cityRepository
-                    )
-        }
+        ListViewModelFactory(applicationContext)
     }
 
     private lateinit var cityList: RecyclerView

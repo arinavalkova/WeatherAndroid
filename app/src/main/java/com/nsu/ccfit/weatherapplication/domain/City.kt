@@ -1,4 +1,4 @@
-package com.nsu.ccfit.weatherapplication.data
+package com.nsu.ccfit.weatherapplication.domain
 
 data class City(
     val id: Long,
@@ -9,3 +9,4 @@ data class City(
     var humidity: Int? = null,
     var weatherDescription: String? = null
 )
+

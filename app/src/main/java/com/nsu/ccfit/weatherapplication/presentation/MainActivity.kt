@@ -1,10 +1,11 @@
-package com.nsu.ccfit.weatherapplication
+package com.nsu.ccfit.weatherapplication.presentation
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import com.nsu.ccfit.weatherapplication.view.list.ListActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.nsu.ccfit.weatherapplication.R
+import com.nsu.ccfit.weatherapplication.presentation.list.ListActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var startButton : Button

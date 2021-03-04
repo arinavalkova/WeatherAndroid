@@ -1,4 +1,4 @@
-package com.nsu.ccfit.weatherapplication.view.weather
+package com.nsu.ccfit.weatherapplication.presentation.weather
 
 import android.content.Context
 import android.content.Intent
@@ -8,12 +8,8 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.nsu.ccfit.weatherapplication.R
-import com.nsu.ccfit.weatherapplication.data.City
-import com.nsu.ccfit.weatherapplication.data.CityApplication
-import com.nsu.ccfit.weatherapplication.data.CityRepository
+import com.nsu.ccfit.weatherapplication.domain.City
 
 class WeatherActivity : AppCompatActivity() {
 
@@ -29,15 +25,8 @@ class WeatherActivity : AppCompatActivity() {
     }
 
     private val viewModel: WeatherViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-                modelClass
-                    .getConstructor(CityRepository::class.java, Long::class.java)
-                    .newInstance(
-                        (application as CityApplication).cityRepository,
-                        intent.getLongExtra(EXTRA_ID, 0)
-                    )
-        }
+        val id = intent.getLongExtra(EXTRA_ID, 0)
+        WeatherViewModelFactory(applicationContext, id)
     }
 
     private lateinit var nameText: TextView
@@ -58,7 +47,7 @@ class WeatherActivity : AppCompatActivity() {
 
         initViews()
 
-        viewModel.weatherRequest()
+        viewModel.start()
     }
 
     private fun initViews() {
@@ -72,7 +61,7 @@ class WeatherActivity : AppCompatActivity() {
     }
 
     private fun bindCity(city: City) {
-        println("Before printing")
+
         nameText.text = getString(R.string.name_format, city.name)
         descriptionInput.setText(city.description ?: getString(R.string.description_absent))
         tempText.text = getString(R.string.temp_format, city.temp)

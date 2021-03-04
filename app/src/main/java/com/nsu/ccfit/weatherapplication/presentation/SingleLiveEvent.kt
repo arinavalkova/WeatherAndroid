@@ -1,4 +1,4 @@
-package com.nsu.ccfit.weatherapplication
+package com.nsu.ccfit.weatherapplication.presentation
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner

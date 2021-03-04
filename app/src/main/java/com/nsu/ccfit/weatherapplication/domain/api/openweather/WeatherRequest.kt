@@ -1,7 +1,7 @@
-package com.nsu.ccfit.weatherapplication.api.openweathermap.request
+package com.nsu.ccfit.weatherapplication.domain.api.openweather
 
 import com.google.gson.Gson
-import com.nsu.ccfit.weatherapplication.api.openweathermap.request.gson.WeatherResult
+import com.nsu.ccfit.weatherapplication.domain.api.openweather.gson.WeatherResult
 import java.net.URL
 
 class WeatherRequest {
