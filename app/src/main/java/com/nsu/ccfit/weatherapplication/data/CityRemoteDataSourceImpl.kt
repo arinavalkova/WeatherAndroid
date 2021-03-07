@@ -7,11 +7,19 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.nsu.ccfit.weatherapplication.domain.City
+import com.nsu.ccfit.weatherapplication.domain.api.openweather.gson.City
+import com.nsu.ccfit.weatherapplication.presentation.BaseViewModel
+import io.reactivex.Completable
+import io.reactivex.Maybe
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 @RequiresApi(Build.VERSION_CODES.P)
-class CityRemoteDataSourceImpl(applicationContext: Context) : CityDataSource {
+class CityRemoteDataSourceImpl(
+    private val api: CityApi,
+    @SuppressLint("StaticFieldLeak") private val applicationContext: Context
+) : CityDataSource, BaseViewModel() {
 
     private val DATABASE_NAME = "citiesDB"
     private val TABLE_NAME = "cities"
@@ -22,62 +30,48 @@ class CityRemoteDataSourceImpl(applicationContext: Context) : CityDataSource {
     )
     private val database: SQLiteDatabase = dataBaseHelper.writableDatabase
 
-    override fun getCities(): List<City> {
+    override fun getCities(): List<String> {
 
-        val cities: MutableList<City> = mutableListOf()
+        val cities: MutableList<String> = mutableListOf()
 
         val cursor: Cursor = database.query(TABLE_NAME, null, null, null, null, null, null)
         if (cursor.count > 0) {
             cursor.moveToFirst()
             do {
-                cities.add(
-                    City(
-                        cursor.getLong(cursor.getColumnIndex(dataBaseHelper.KEY_ID)),
-                        cursor.getString(cursor.getColumnIndex(dataBaseHelper.KEY_NAME)),
-                        cursor.getString(cursor.getColumnIndex(dataBaseHelper.KEY_DESCRIPTION)),
-                        cursor.getDouble(cursor.getColumnIndex(dataBaseHelper.KEY_TEMP)),
-                        cursor.getDouble(cursor.getColumnIndex(dataBaseHelper.KEY_FEELS_LIKE)),
-                        cursor.getInt(cursor.getColumnIndex(dataBaseHelper.KEY_HUMIDITY))
-                    )
-                )
+                cities.add(cursor.getString(cursor.getColumnIndex(dataBaseHelper.KEY_NAME)))
             } while (cursor.moveToNext())
         }
-
         cursor.close()
-        return cities
+
+        return cities.toList()
     }
 
-    @SuppressLint("Recycle")
-    override fun getCity(id: Long): City {
-        val cursor: Cursor = database.query(
-            TABLE_NAME, null, "${dataBaseHelper.KEY_ID}=$id",
-            null, null, null, null
-        )
-        cursor.moveToFirst()
+    override fun getCity(cityName: String): Maybe<City> {
 
-        val city = City(
-            cursor.getLong(cursor.getColumnIndex(dataBaseHelper.KEY_ID)),
-            cursor.getString(cursor.getColumnIndex(dataBaseHelper.KEY_NAME)),
-            cursor.getString(cursor.getColumnIndex(dataBaseHelper.KEY_DESCRIPTION)),
-            cursor.getDouble(cursor.getColumnIndex(dataBaseHelper.KEY_TEMP)),
-            cursor.getDouble(cursor.getColumnIndex(dataBaseHelper.KEY_FEELS_LIKE)),
-            cursor.getInt(cursor.getColumnIndex(dataBaseHelper.KEY_HUMIDITY))
-        )
-
-        cursor.close()
-        return city
+        return api.getCity(cityName)
+            .subscribeOn(Schedulers.io())
     }
 
-    override fun setCity(city: City) {
+    override fun deleteCity(cityName: String): Completable {
+        database.delete(dataBaseHelper.TABLE_NAME, dataBaseHelper.KEY_NAME + "='" + cityName +"'", null)
+        return Completable.complete()
+    }
+
+    override fun createCity(cityName: String): Maybe<City>{
         val updatedValues = ContentValues()
 
-        updatedValues.put(dataBaseHelper.KEY_ID, city.id)
-        updatedValues.put(dataBaseHelper.KEY_NAME, city.name)
-        updatedValues.put(dataBaseHelper.KEY_TEMP, city.temp)
-        updatedValues.put(dataBaseHelper.KEY_FEELS_LIKE, city.feelsLike)
-        updatedValues.put(dataBaseHelper.KEY_HUMIDITY, city.humidity)
-        updatedValues.put(dataBaseHelper.KEY_DESCRIPTION, city.description)
+        updatedValues.put(dataBaseHelper.KEY_NAME, cityName)
 
-        database.update(TABLE_NAME, updatedValues, "${dataBaseHelper.KEY_ID}=${city.id}", null)
+        api.getCity(cityName)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                database.insert(TABLE_NAME, null, updatedValues)
+            }, {
+            })
+            .untilDestroy()
+
+        return api.getCity(cityName)
+            .subscribeOn(Schedulers.io())
     }
 }

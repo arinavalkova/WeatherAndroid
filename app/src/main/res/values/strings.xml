@@ -9,4 +9,5 @@
     <string name="descriprion_format">Description: %1$s</string>
     <string name="description_absent">No description</string>
     <string name="save_button">Save</string>
+    <string name="enter_name">enter name</string>
 </resources>
