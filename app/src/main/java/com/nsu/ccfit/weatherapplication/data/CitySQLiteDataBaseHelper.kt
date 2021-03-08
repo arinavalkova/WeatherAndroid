@@ -8,7 +8,7 @@ import androidx.annotation.RequiresApi
 
 
 @RequiresApi(Build.VERSION_CODES.P)
-class CityDataBaseHelper(
+class CitySQLiteDataBaseHelper(
     context: Context?,
     name: String?,
     factory: SQLiteDatabase.CursorFactory?,
@@ -27,13 +27,6 @@ class CityDataBaseHelper(
                     + KEY_NAME + " text"
                     + ");"
         )
-
-        dataBase?.execSQL("INSERT INTO $TABLE_NAME Values (0,'Novosibirsk');")
-        dataBase?.execSQL("INSERT INTO $TABLE_NAME Values (1,'Moscow');")
-        dataBase?.execSQL("INSERT INTO $TABLE_NAME Values (2,'Tomsk');")
-        dataBase?.execSQL("INSERT INTO $TABLE_NAME Values (3,'Berdsk');")
-        dataBase?.execSQL("INSERT INTO $TABLE_NAME Values (4,'Krasnodar');")
-        dataBase?.execSQL("INSERT INTO $TABLE_NAME Values (5,'Murmansk');")
     }
 
     override fun onUpgrade(dataBase: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

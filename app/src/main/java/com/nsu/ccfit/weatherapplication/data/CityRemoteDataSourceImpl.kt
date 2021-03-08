@@ -25,7 +25,7 @@ class CityRemoteDataSourceImpl(
     private val TABLE_NAME = "cities"
     private val DATABASE_VERSION = 1
 
-    private val dataBaseHelper = CityDataBaseHelper(
+    private val dataBaseHelper = CitySQLiteDataBaseHelper(
         applicationContext, DATABASE_NAME, null, DATABASE_VERSION
     )
     private val database: SQLiteDatabase = dataBaseHelper.writableDatabase
@@ -53,7 +53,11 @@ class CityRemoteDataSourceImpl(
     }
 
     override fun deleteCity(cityName: String): Completable {
-        database.delete(dataBaseHelper.TABLE_NAME, dataBaseHelper.KEY_NAME + "='" + cityName +"'", null)
+        database.delete(
+            dataBaseHelper.TABLE_NAME,
+            dataBaseHelper.KEY_NAME + "='" + cityName + "'",
+            null
+        )
         return Completable.complete()
     }
 
@@ -66,12 +70,21 @@ class CityRemoteDataSourceImpl(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                database.insert(TABLE_NAME, null, updatedValues)
-            }, {
-            })
+                if (!isInDataBase(cityName)) {
+                    database.insert(TABLE_NAME, null, updatedValues)
+                }
+            }, {})
             .untilDestroy()
 
         return api.getCity(cityName)
             .subscribeOn(Schedulers.io())
+    }
+
+    @SuppressLint("Recycle")
+    private fun isInDataBase(cityName: String): Boolean {
+        val cursor: Cursor =
+            database.query(TABLE_NAME, null, dataBaseHelper.KEY_NAME + "=?",
+                arrayOf(cityName), null, null, null, null)
+        return cursor.count != 0
     }
 }

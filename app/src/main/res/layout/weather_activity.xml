@@ -6,97 +6,110 @@
     android:layout_height="match_parent"
     tools:context=".presentation.weather.WeatherActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="-174dp">
 
-    <TextView
-        android:id="@+id/tempText"
-        android:layout_width="300dp"
-        android:layout_height="24dp"
-        android:layout_margin="24dp"
-        android:layout_marginBottom="40dp"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/feelsLikeText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Temp: -25" />
+        <TextView
+            android:id="@+id/tempText"
+            android:layout_width="300dp"
+            android:layout_height="24dp"
+            android:layout_margin="24dp"
+            android:layout_marginBottom="168dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/feelsLikeText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Temp: -25" />
 
-    <TextView
-        android:id="@+id/feelsLikeText"
-        android:layout_width="300dp"
-        android:layout_height="24dp"
-        android:layout_margin="24dp"
-        android:layout_marginBottom="40dp"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/humidityText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Feels like: -25" />
+        <TextView
+            android:id="@+id/feelsLikeText"
+            android:layout_width="300dp"
+            android:layout_height="24dp"
+            android:layout_margin="24dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/humidityText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Feels like: -25" />
 
-    <TextView
-        android:id="@+id/humidityText"
-        android:layout_width="300dp"
-        android:layout_height="24dp"
-        android:layout_margin="24dp"
-        android:layout_marginBottom="40dp"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/descriptionOutput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Humidity: 60" />
+        <TextView
+            android:id="@+id/humidityText"
+            android:layout_width="300dp"
+            android:layout_height="24dp"
+            android:layout_margin="24dp"
+            android:layout_marginBottom="28dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Humidity: 60" />
 
-    <TextView
-        android:id="@+id/descriptionOutput"
-        android:layout_width="300dp"
-        android:layout_height="24dp"
-        android:layout_margin="24dp"
-        android:layout_marginBottom="24dp"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/descriptionInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Description: " />
+        <TextView
+            android:id="@+id/nameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:layout_marginBottom="40dp"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/tempText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.456"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.504"
+            tools:text="City: Novosibirsk" />
 
-    <TextView
-        android:id="@+id/nameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:layout_marginBottom="40dp"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/tempText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.62"
-        tools:text="City: Novosibirsk" />
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="300dp"
+            android:layout_height="24dp"
+            android:layout_margin="24dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.586"
+            tools:text="Description:" />
 
-    <EditText
-        android:id="@+id/descriptionInput"
-        android:layout_width="296dp"
-        android:layout_height="47dp"
-        android:layout_margin="24dp"
-        android:layout_marginBottom="24dp"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/saveButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="133dp"
+            android:layout_height="45dp"
+            android:layout_margin="24dp"
+            android:backgroundTint="#090909"
+            android:text="@string/back"
+            android:textColor="#FAF9F9"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.804" />
 
- </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminateTint="@color/black"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

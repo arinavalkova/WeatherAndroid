@@ -3,9 +3,13 @@ package com.nsu.ccfit.weatherapplication.presentation.create
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.*
+import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.nsu.ccfit.weatherapplication.R
 
@@ -24,10 +28,9 @@ class CreateActivity : AppCompatActivity() {
     }
 
     private lateinit var nameText: TextView
-
     private lateinit var saveButton: Button
     private lateinit var progressBar: ProgressBar
-    private lateinit var content: LinearLayout
+    private lateinit var content: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -4,11 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
-import android.widget.LinearLayout
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.nsu.ccfit.weatherapplication.R
 import com.nsu.ccfit.weatherapplication.domain.api.openweather.gson.City
@@ -37,7 +38,8 @@ class WeatherActivity : AppCompatActivity() {
     private lateinit var humidityText: TextView
     private lateinit var descriptionText: TextView
     private lateinit var progressBar: ProgressBar
-    private lateinit var content: LinearLayout
+    private lateinit var content: ConstraintLayout
+    private lateinit var backButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +74,12 @@ class WeatherActivity : AppCompatActivity() {
         tempText = findViewById(R.id.tempText)
         feelsLikeText = findViewById(R.id.feelsLikeText)
         humidityText = findViewById(R.id.humidityText)
-        descriptionText = findViewById(R.id.descriptionOutput)
+        descriptionText = findViewById(R.id.description)
+        backButton = findViewById(R.id.backButton)
+
+        backButton.setOnClickListener {
+            closeScreen()
+        }
 
         progressBar = findViewById(R.id.progressBar)
         content = findViewById(R.id.content)

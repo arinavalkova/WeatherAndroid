@@ -28,5 +28,8 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
-        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
+        android:backgroundTint="#FDFCFC"
+        android:src="@drawable/plus_2_"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+        android:contentDescription="TODO" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
