@@ -18,17 +18,14 @@ import io.reactivex.schedulers.Schedulers
 @RequiresApi(Build.VERSION_CODES.P)
 class CityRemoteDataSourceImpl(
     private val api: CityApi,
-    @SuppressLint("StaticFieldLeak") private val applicationContext: Context
+    @SuppressLint("StaticFieldLeak") private val applicationContext: Context,
+    private val database: SQLiteDatabase
 ) : CityDataSource, BaseViewModel() {
 
-    private val DATABASE_NAME = "citiesDB"
-    private val TABLE_NAME = "cities"
-    private val DATABASE_VERSION = 1
+    val TABLE_NAME = "cities"
 
-    private val dataBaseHelper = CitySQLiteDataBaseHelper(
-        applicationContext, DATABASE_NAME, null, DATABASE_VERSION
-    )
-    private val database: SQLiteDatabase = dataBaseHelper.writableDatabase
+    val KEY_ID = "id"
+    val KEY_NAME = "name"
 
     override fun getCities(): List<String> {
 
@@ -38,7 +35,7 @@ class CityRemoteDataSourceImpl(
         if (cursor.count > 0) {
             cursor.moveToFirst()
             do {
-                cities.add(cursor.getString(cursor.getColumnIndex(dataBaseHelper.KEY_NAME)))
+                cities.add(cursor.getString(cursor.getColumnIndex(KEY_NAME)))
             } while (cursor.moveToNext())
         }
         cursor.close()
@@ -54,8 +51,8 @@ class CityRemoteDataSourceImpl(
 
     override fun deleteCity(cityName: String): Completable {
         database.delete(
-            dataBaseHelper.TABLE_NAME,
-            dataBaseHelper.KEY_NAME + "='" + cityName + "'",
+            TABLE_NAME,
+            "$KEY_NAME='$cityName'",
             null
         )
         return Completable.complete()
@@ -64,7 +61,7 @@ class CityRemoteDataSourceImpl(
     override fun createCity(cityName: String): Maybe<City>{
         val updatedValues = ContentValues()
 
-        updatedValues.put(dataBaseHelper.KEY_NAME, cityName)
+        updatedValues.put(KEY_NAME, cityName)
 
         api.getCity(cityName)
             .subscribeOn(Schedulers.io())
@@ -83,7 +80,7 @@ class CityRemoteDataSourceImpl(
     @SuppressLint("Recycle")
     private fun isInDataBase(cityName: String): Boolean {
         val cursor: Cursor =
-            database.query(TABLE_NAME, null, dataBaseHelper.KEY_NAME + "=?",
+            database.query(TABLE_NAME, null, "$KEY_NAME=?",
                 arrayOf(cityName), null, null, null, null)
         return cursor.count != 0
     }

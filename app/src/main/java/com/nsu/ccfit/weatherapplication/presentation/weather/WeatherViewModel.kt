@@ -17,15 +17,15 @@ class WeatherViewModel(
     val loading = MutableLiveData(false)
 
     init {
-            loading.value = true
-            getCityUseCase(cityName)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    loading.value = false
-                    this.city.value = it
-                }, {
-                    closeScreenEvent(Unit)
-                })
-                .untilDestroy()
+        loading.value = true
+        getCityUseCase(cityName)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                loading.value = false
+                this.city.value = it
+            }, {
+                closeScreenEvent(Unit)
+            })
+            .untilDestroy()
     }
 }

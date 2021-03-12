@@ -8,7 +8,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 
 class ListViewModel(
     private val getCitiesUseCase: GetCitiesUseCase,
-    private val removePersonUseCase: RemoveCityUseCase
+    private val removeCityUseCase: RemoveCityUseCase
 ) : BaseViewModel() {
 
     val cityList = MutableLiveData<List<String>>()
@@ -22,7 +22,7 @@ class ListViewModel(
 
     fun removeCity(cityName: String) {
         loading.value = true
-        removePersonUseCase(cityName)
+        removeCityUseCase(cityName)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 loadCities()
